@@ -17,7 +17,7 @@ description: "Tarefas: textos do mod em inglês"
 
 - [x] T002 [US1] Em `src/Upgrades.cs`: adicionar `using System.Globalization;` e o campo `public System.Func<float, string> TextoDoEfeito;` em `UpgradeDef`; trocar `Nome`/`Resumo` dos 3 upgrades pelos textos da tabela do plan.md; definir `TextoDoEfeito` com **uma única forma** de formatação, por um helper `Porcento(float m) => ((m - 1f) * 100f).ToString("0", CultureInfo.InvariantCulture)`: Compactador `m => $"+{Porcento(m)}% compactor speed"`, Prensa `"... stone press speed"`, Contrato `"... payout"` (a interpolação recebe só a string pronta, sem formatar número)
 - [x] T003 [US1] Em `src/FactoryTree.cs`: `NomeDoRamo = "Factory"`, `SubtituloDoRamo = "Faster machines, bigger payouts"`, e o `if` de `CriarNo` vira `def.TextoDoEfeito(def.Multiplicador(nivel))`; em `src/BetterMoonSweeperMain.cs`, `Version = "0.3.1"`
-- [ ] T004 [US1] Rodar `dotnet build -c Release -p:Diagnostico=true` e por último `dotnet build -c Release` (jogo fechado), sem erros
+- [x] T004 [US1] Rodar `dotnet build -c Release -p:Diagnostico=true` e por último `dotnet build -c Release` (jogo fechado), sem erros
 - [ ] T005 [US1] Executar `specs/005-textos-ingles/quickstart.md` (todos os cenários, incluindo `effect(0)`, pontuação e save/reload) numa sessão descartável. Pode rodar junto com a T015 da spec 004
 
 - [x] T008 [US1] Em `src/Upgrades.cs`, trocar os `NodeId` de `jonasmod.*` para `bettermoonsweeper.*` (FR-005)
