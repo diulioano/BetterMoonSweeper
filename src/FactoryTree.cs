@@ -12,7 +12,7 @@ namespace BetterMoonSweeper
         // Se a tela não aceitar um 7º ramo, mude para false e os nós vão para o ramo Economy
         public static bool UsarRamoProprio = true;
 
-        public const string NomeDoRamo = "Factory";
+        public const string NomeDoRamo = "FACTORY";
         public const string SubtituloDoRamo = "Faster machines, bigger payouts";
         public static readonly Color CorDoRamo = new(1f, 0.55f, 0.15f);
 
