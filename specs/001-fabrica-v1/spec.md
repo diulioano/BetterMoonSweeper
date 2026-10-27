@@ -11,6 +11,8 @@
 > Esta spec registra o design acordado na Fase 1 (ver `README.md`) e o estado atual dele. Ela não
 > pede trabalho novo: o que falta está marcado em "Status por requisito".
 
+> Nomes visíveis e ids substituídos pela spec 005 (textos em inglês; ids `bettermoonsweeper.*`).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Comprar upgrades de fábrica num ramo próprio (Priority: P1)

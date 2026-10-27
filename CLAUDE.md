@@ -19,12 +19,12 @@ O design acordado, a lista de classes do jogo e as instruções de build ficam n
 - `BetterMoonSweeper.csproj`, net6.0, referencia `BepInEx\core\*.dll` (BepInEx, Harmony, Il2CppInterop) e `BepInEx\interop\*.dll` (gerados na primeira execução do jogo com o patcher).
 - `dotnet build -c Release` copia `BetterMoonSweeper.dll` para `<jogo>\BepInEx\plugins` (só funciona com o jogo fechado ou antes do plugin ser carregado).
 - O plugin é um `BasePlugin` do BepInEx que aplica os patches HarmonyX com `PatchAll`; tipos do jogo vêm do namespace `MoonCleaners`. Não usar `AddComponent` (class injection é a parte frágil na 6000.6); para lógica por quadro, Postfix em `MoonWorld.Update`.
-- O mod se chamava JonasMod até 2026-10-27; a pasta do repositório e os ids internos dos nós da árvore (`jonasmod.*`) mantêm o nome antigo de propósito.
+- O mod se chamava JonasMod até 2026-10-27. Os ids dos nós são `bettermoonsweeper.*` desde a 0.3.1 (spec 005); só a pasta do repositório ainda se chama `JonasMod`.
 - Specs, planos e tarefas ficam em `specs/` (Spec Kit); regras em `.specify/memory/constitution.md`.
 
 ## Regras
 
-- Comunicação com o usuário em português.
+- Comunicação com o usuário, documentação e logs em português. Textos que aparecem no jogo em inglês, no estilo dos nós originais (resumo de uma frase, efeito curto como "+10% payout").
 - Pedir autorização antes de baixar qualquer coisa ou alterar arquivos na pasta do jogo; fazer backup antes.
 - O mod é para co-op com amigos que também instalam o mod; não fazer nada que afete jogadores sem o mod.
 - JONAS 2.0 (modelo 3D maior do Jonas) é fase 2; no código o Jonas se chama `Joonas` (`MoonJoonasRig`, `MoonJoonasMotion`, `MoonJoonasGauge`).

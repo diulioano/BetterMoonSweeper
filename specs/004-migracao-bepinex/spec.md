@@ -12,6 +12,8 @@
 > então nada das specs 001 a 003 pôde ser testado. A comunidade do jogo usa BepInEx 6 be.791 mais um
 > patcher próprio para a Unity 6000.6 / metadata 108, e vários mods do Nexus rodam assim.
 
+> Nomes visíveis e ids substituídos pela spec 005 (textos em inglês; ids `bettermoonsweeper.*`).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - O mod roda no jogo (Priority: P1)

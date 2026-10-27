@@ -43,7 +43,7 @@ description: "Tarefas: migração do mod para BepInEx 6"
 - [x] T012 [US1] Em `src/GravityBootsHotkey.cs` (inclusive as linhas dentro de `#if DIAGNOSTICO`, que usam `var log = Melon<...>.Logger`) e `src/FactoryTree.cs`, trocar `Melon<BetterMoonSweeperMain>.Logger` (`Msg`/`Error`) por `BetterMoonSweeperMain.Log` (`LogInfo`/`LogError`) e remover `using MelonLoader`
 - [x] T013 [US1] Em `src/FactoryTree.cs`, tornar `Injetar()` à prova de falha parcial (research R3, H5): montar todos os nós (incluindo a conversão de `effect` para `Il2CppSystem.Func`) **antes** de alterar `BranchNames`/`BranchTaglines`/`BranchColors`; envolver o corpo em try/catch que loga só a primeira exceção e marca a injeção como desistida, para os Prefix de `StepProduction` e `Build` não tentarem de novo a cada quadro
 - [x] T014 [US1] Rodar `dotnet build -c Release -p:Diagnostico=true` e **por último** `dotnet build -c Release`, os dois sem erros (quickstart cenário 2)
-- [ ] T015 [US1] Abrir o jogo, **criar uma sessão nova descartável** (não usar os saves de verdade) e executar os cenários 3 a 6 do quickstart, conferindo que existe **uma única** aba "Fábrica"; depois, os cenários solo dos quickstarts das specs 002 e 003
+- [ ] T015 [US1] Abrir o jogo, **criar uma sessão nova descartável** (não usar os saves de verdade) e executar os cenários 3 a 6 do quickstart, conferindo que existe **uma única** aba "Factory" (nome da spec 005); depois, os cenários solo dos quickstarts das specs 002 e 003
 
 **Checkpoint**: mod rodando e testado em jogo, solo.
 

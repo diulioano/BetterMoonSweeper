@@ -12,6 +12,8 @@
 > recebido pelo time em +10 / 25 / 50%. Esta feature acrescenta níveis ao mesmo upgrade. Upgrades
 > por produto foram considerados e descartados pelo usuário.
 
+> Nomes visíveis e ids substituídos pela spec 005 (textos em inglês; ids `bettermoonsweeper.*`).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Comprar níveis além do 3 (Priority: P1)

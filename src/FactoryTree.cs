@@ -5,15 +5,15 @@ using UnityEngine;
 
 namespace BetterMoonSweeper
 {
-    // Injeta o ramo "Fábrica" e os nós do mod na árvore de upgrades do jogo.
+    // Injeta o ramo "Factory" e os nós do mod na árvore de upgrades do jogo.
     // Os nós passam a usar a compra, o save e a sincronização nativos (TryPurchaseTreeNode / CrewPurchase).
     public static class FactoryTree
     {
         // Se a tela não aceitar um 7º ramo, mude para false e os nós vão para o ramo Economy
         public static bool UsarRamoProprio = true;
 
-        public const string NomeDoRamo = "Fábrica";
-        public const string SubtituloDoRamo = "Máquinas mais rápidas, mais lucro.";
+        public const string NomeDoRamo = "Factory";
+        public const string SubtituloDoRamo = "Faster machines, bigger payouts";
         public static readonly Color CorDoRamo = new(1f, 0.55f, 0.15f);
 
         private static bool _injetado;
@@ -69,13 +69,7 @@ namespace BetterMoonSweeper
             var precos = new int[def.NivelMaximo];
             for (int n = 1; n <= def.NivelMaximo; n++) precos[n - 1] = def.PrecoDoNivel(n);
 
-            System.Func<int, string> efeito = nivel =>
-            {
-                float m = def.Multiplicador(nivel);
-                return def.Id == UpgradeId.ContratoLunar
-                    ? $"+{(m - 1f) * 100f:0}% de dinheiro"
-                    : $"{m:0.#}x mais rápido";
-            };
+            System.Func<int, string> efeito = nivel => def.TextoDoEfeito(def.Multiplicador(nivel));
 
             return new MoonUpgradeTree.Node
             {

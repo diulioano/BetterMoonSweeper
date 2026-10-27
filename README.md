@@ -1,7 +1,7 @@
 # BetterMoonSweeper — Moon Sweepers
 
 Mod de upgrades de fábrica e qualidade de vida para o Moon Sweepers (Unity 6000.6, IL2CPP), plugin do
-BepInEx 6. Versão atual: **0.3.0**. Até a 0.1.0 o mod se chamava JonasMod; até a 0.2.0 usava MelonLoader.
+BepInEx 6. Versão atual: **0.3.1**. Até a 0.1.0 o mod se chamava JonasMod; até a 0.2.0 usava MelonLoader.
 
 ## Instalar (jogadores)
 
@@ -19,7 +19,7 @@ Todos do grupo precisam da mesma instalação e da mesma versão do mod.
    (SHA-256 `b91bb4d4c12870abe79039a04173bbd5077322a8613bf90159a200a8370b1f94`).
 4. Abra o jogo uma vez e feche. O primeiro início demora um pouco mais.
 5. Copie `BetterMoonSweeper.dll` para `BepInEx\plugins`.
-6. Abra o jogo. Em `BepInEx\LogOutput.log` deve aparecer `BetterMoonSweeper 0.3.0 carregado.` e,
+6. Abra o jogo. Em `BepInEx\LogOutput.log` deve aparecer `BetterMoonSweeper 0.3.1 carregado.` e,
    no fim, `Chainloader startup complete`. As mensagens `Unsupported metadata version found! ...
    got 108` e `Class::Init signatures have been exhausted` são esperadas.
 
@@ -51,7 +51,8 @@ tarefas em `specs/`:
 | [001](specs/001-fabrica-v1/spec.md) | Fábrica v1 (linha de base deste README) | Parcial: falta bloqueio no lobby e save separado; nada testado em jogo |
 | [002](specs/002-toggle-bota-gravidade/spec.md) | Ctrl liga/desliga a bota de gravidade | Implementada, não testada |
 | [003](specs/003-contrato-lunar-niveis/spec.md) | Contrato Lunar com 6 níveis (+75% / +100% / +150% nos novos) | Implementada, não testada |
-| [004](specs/004-migracao-bepinex/spec.md) | Migração para BepInEx 6 | Implementada; mod carrega; testes em jogo em andamento |
+| [004](specs/004-migracao-bepinex/spec.md) | Migração para BepInEx 6 | Implementada; mod carrega e injeta a aba; testes em jogo em andamento |
+| [005](specs/005-textos-ingles/spec.md) | Textos em inglês no padrão do jogo; ids `bettermoonsweeper.*` | Implementada, não testada |
 
 Fluxo para features novas: `/speckit-specify` → `/speckit-plan` → `/speckit-tasks` →
 `/speckit-analyze` → `/speckit-implement`.
@@ -61,11 +62,11 @@ Fluxo para features novas: `/speckit-specify` → `/speckit-plan` → `/speckit-
 | Decisão | Escolha |
 |---|---|
 | Multiplayer | Todos instalam o mod; quem não tiver ou estiver em versão diferente é bloqueado no lobby |
-| Upgrades | Compactador Turbo (1,5× / 2× / 3×), Prensa Turbo (stone fabric, mesmos níveis), Contrato Lunar (+10% / +25% / +50% / +75% / +100% / +150% de dinheiro, 6 níveis desde a 0.2.0) |
+| Upgrades | Turbo Compactor (+50% / +100% / +200% de velocidade), Turbo Stone Press (mesmos níveis), Lunar Contract (+10% / +25% / +50% / +75% / +100% / +150% payout, 6 níveis desde a 0.2.0). No jogo os textos são em inglês (spec 005) |
 | Preço | Cada nível custa ~3× o anterior (valores provisórios em `src/Upgrades.cs`) |
 | Pagamento | Qualquer jogador compra com o dinheiro do time; o host confirma |
 | Save | Arquivo separado do mod no PC do host; o save original não é alterado |
-| Interface | Aba nova "Fábrica" na árvore de upgrades; se não der, os nós vão para o ramo Economy |
+| Interface | Aba nova "Factory" na árvore de upgrades; se não der, os nós vão para o ramo Economy |
 
 ## Controles do mod
 
@@ -120,7 +121,7 @@ classes está em [docs/assembly-csharp.txt](docs/assembly-csharp.txt), gerada po
 | Arquivo | O que faz |
 |---|---|
 | `src/BetterMoonSweeperMain.cs` | Ponto de entrada (plugin do BepInEx); aplica os patches Harmony |
-| `src/Upgrades.cs` | Definição dos 3 upgrades (ids, preços, multiplicadores). Os ids `jonasmod.*` mantêm o nome antigo de propósito |
+| `src/Upgrades.cs` | Definição dos 3 upgrades: ids `bettermoonsweeper.*`, textos em inglês, preços e multiplicadores |
 | `src/GravityBootsHotkey.cs` | Atalho Ctrl da bota de gravidade |
 | `src/FactoryTree.cs` | Injeta o ramo "Fábrica" e os nós na `MoonUpgradeTree` |
 | `src/Patches.cs` | Patches Harmony: velocidade das máquinas, multiplicador de dinheiro e chamada por quadro do atalho Ctrl (`MoonWorld.Update`) |

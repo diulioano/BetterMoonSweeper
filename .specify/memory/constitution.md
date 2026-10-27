@@ -1,6 +1,8 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0 → 1.1.0 (MINOR: troca de loader, texto dos princípios II e VI)
+- Version change: 1.1.0 → 1.2.0 (MINOR: muda o conteúdo da regra de idioma; spec 005)
+- Regra modificada: Restrições Técnicas, idioma (texto para o jogador passa a ser em inglês)
+- Histórico 1.0.0 → 1.1.0 (MINOR: troca de loader, texto dos princípios II e VI)
 - Princípios modificados: II (deploy em `BepInEx\plugins` em vez de `Mods`); VI (removida a
   referência ao bloqueio do MelonLoader)
 - Seções modificadas: Restrições Técnicas (BepInEx 6 be.791 + patcher; namespace `MoonCleaners`)
@@ -79,7 +81,8 @@ Razão: não há testes automatizados viáveis contra um jogo IL2CPP fechado.
 - Loader: BepInEx 6.0.0-be.791 (Unity.IL2CPP win-x64) + MoonSweepers BepInEx Patcher (Nexus mod 9)
   + HarmonyX; tipos do jogo vêm do namespace `MoonCleaners` das DLLs geradas em `BepInEx\interop`.
 - Projeto: `BetterMoonSweeper.csproj`, net6.0, uma única DLL em `src/`.
-- Textos visíveis ao jogador, documentação e comunicação MUST estar em português.
+- Textos visíveis ao jogador MUST estar em inglês, no padrão do jogo (tom e formato dos nós
+  originais). Documentação, logs e comunicação com o usuário MUST estar em português.
 - Nada de dependências NuGet novas sem autorização (regra II).
 
 ## Fluxo de Desenvolvimento
@@ -99,4 +102,4 @@ Razão: não há testes automatizados viáveis contra um jogo IL2CPP fechado.
   redefine princípio; MINOR adiciona princípio ou seção; PATCH ajusta texto).
 - Orientações do dia a dia ficam em `CLAUDE.md`; este arquivo só guarda regras.
 
-**Version**: 1.1.0 | **Ratified**: 2026-10-27 | **Last Amended**: 2026-10-27
+**Version**: 1.2.0 | **Ratified**: 2026-10-27 | **Last Amended**: 2026-10-27

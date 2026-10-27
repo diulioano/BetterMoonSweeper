@@ -2,7 +2,7 @@
 
 | Item | v1 | Esta feature |
 |---|---|---|
-| Id | `jonasmod.contract` | igual |
+| Id | `jonasmod.contract` | igual (depois `bettermoonsweeper.contract`, spec 005) |
 | Aba | Fábrica (ou Economy) | igual |
 | `maxLevel` | 3 | 6 |
 | `prices` | 2500 / 7500 / 22500 | + 67500 / 202500 / 607500 |
