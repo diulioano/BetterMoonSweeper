@@ -27,7 +27,7 @@ tudo do upgrade em `Upgrades.cs`), e `FactoryTree.CriarNo` deixa de ter o `if` p
 
 | Onde | Antes | Depois |
 |---|---|---|
-| Aba | Fábrica | Factory |
+| Aba | Fábrica | FACTORY (em maiúsculas, como as abas do jogo; ajuste do usuário) |
 | Subtítulo | Máquinas mais rápidas, mais lucro. | Faster machines, bigger payouts |
 | Nó | Compactador Turbo | Turbo Compactor |
 | Resumo | O compactador transforma poeira em areia mais rápido. | Overclocked motors: the dust compactor turns dust into sand faster. |

@@ -24,7 +24,7 @@ O design acordado, a lista de classes do jogo e as instruções de build ficam n
 
 ## Regras
 
-- Comunicação com o usuário, documentação e logs em português. Textos que aparecem no jogo em inglês, no estilo dos nós originais (resumo de uma frase, efeito curto como "+10% payout").
+- Comunicação com o usuário, documentação e logs em português. Textos que aparecem no jogo em inglês, no estilo dos nós originais (nome de aba em maiúsculas como "FACTORY", resumo de uma frase, efeito curto como "+10% payout").
 - Pedir autorização antes de baixar qualquer coisa ou alterar arquivos na pasta do jogo; fazer backup antes.
 - O mod é para co-op com amigos que também instalam o mod; não fazer nada que afete jogadores sem o mod.
 - JONAS 2.0 (modelo 3D maior do Jonas) é fase 2; no código o Jonas se chama `Joonas` (`MoonJoonasRig`, `MoonJoonasMotion`, `MoonJoonasGauge`).

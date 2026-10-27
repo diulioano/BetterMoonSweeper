@@ -16,7 +16,7 @@ compra do nível.
 
 | # | Passos | Resultado esperado | Spec |
 |---|---|---|---|
-| 1 | Abrir a aba Factory e o nó Lunar Contract (spec 005) | 6 níveis; marcadores e número romano legíveis; anotar se algum indicador de progresso da árvore mudou | US1-1, R3, R5b |
+| 1 | Abrir a aba FACTORY e o nó Lunar Contract (spec 005) | 6 níveis; marcadores e número romano legíveis; anotar se algum indicador de progresso da árvore mudou | US1-1, R3, R5b |
 | 2 | Comprar níveis 1 a 3 | Mesmos preços e textos da v1 (ou os mesmos com o desconto do jogo, se houver; research H4) | Edge case |
 | 3 | Comprar o nível 4 | Preço 3× o do nível 3 (67.500 sem desconto); texto "+75% payout" | US1-1, US1-5, H4 |
 | 4 | Vender uma carga no nível 3 e outra igual no nível 4 | Nível 4 rende entre 174% e 176% do valor sem upgrade | US1-2, SC-001 |

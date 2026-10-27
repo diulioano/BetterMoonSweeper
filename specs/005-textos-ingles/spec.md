@@ -22,7 +22,7 @@ efeitos em inglês, com o mesmo tom e formato dos nós originais (frases curtas,
 
 **Acceptance Scenarios**:
 
-1. **Given** o mod carregado, **When** o jogador abre a árvore, **Then** a aba se chama "Factory" e o subtítulo está em inglês.
+1. **Given** o mod carregado, **When** o jogador abre a árvore, **Then** a aba se chama "FACTORY" (maiúsculas, como as abas do jogo) e o subtítulo está em inglês.
 2. **Given** a aba aberta, **When** o jogador olha os 3 nós, **Then** nome, resumo e efeito de cada nível estão em inglês.
 3. **Given** um Windows configurado em português, **When** o jogador lê os efeitos, **Then** nenhum tem vírgula: todos os percentuais são inteiros (por exemplo "+50%", "+150%").
 
