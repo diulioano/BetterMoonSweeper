@@ -18,6 +18,13 @@ namespace BetterMoonSweeper
         private static void Postfix() => GravityBootsHotkey.Tick();
     }
 
+    // JONAS 2.0: aumenta o Jonas quando o jogo monta o rig dele
+    [HarmonyPatch(typeof(MoonJoonasRig), nameof(MoonJoonasRig.Setup))]
+    internal static class JoonasSetupPatch
+    {
+        private static void Postfix(MoonRobotVacuum owner) => JonasMaior.Aplicar(owner);
+    }
+
     // Acelera o compactador e a prensa de pedra ajustando o tempo de ciclo das specs estáticas
     // antes de cada passo de produção. Todos os jogadores têm o mod e os mesmos níveis, então host e
     // clientes calculam o mesmo tempo.

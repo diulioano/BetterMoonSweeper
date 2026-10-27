@@ -27,4 +27,4 @@ O design acordado, a lista de classes do jogo e as instruções de build ficam n
 - Comunicação com o usuário, documentação e logs em português. Textos que aparecem no jogo em inglês, no estilo dos nós originais (nome de aba em maiúsculas como "FACTORY", resumo de uma frase, efeito curto como "+10% payout").
 - Pedir autorização antes de baixar qualquer coisa ou alterar arquivos na pasta do jogo; fazer backup antes.
 - O mod é para co-op com amigos que também instalam o mod; não fazer nada que afete jogadores sem o mod.
-- JONAS 2.0 (modelo 3D maior do Jonas) é fase 2; no código o Jonas se chama `Joonas` (`MoonJoonasRig`, `MoonJoonasMotion`, `MoonJoonasGauge`).
+- JONAS 2.0 (0.4.0) é o modelo original do Jonas escalado 1,5x (`src/JonasMaior.cs`), não um modelo 3D novo: o usuário desistiu do modelo próprio. No código o Jonas se chama `Joonas` (`MoonJoonasRig`, `MoonJoonasMotion`, `MoonJoonasGauge`).

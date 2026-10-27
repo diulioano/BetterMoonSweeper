@@ -1,12 +1,12 @@
 # BetterMoonSweeper
 
 Mod para o **Moon Sweepers** (DragDrop Games) feito para jogar em co-op com amigos. Ele adiciona uma
-aba nova de upgrades de fábrica, mais níveis para o lucro do time e um atalho para a bota de
-gravidade. Os textos dentro do jogo seguem o padrão do próprio Moon Sweepers, em inglês.
+aba nova de upgrades de fábrica, mais níveis para o lucro do time, um atalho para a bota de
+gravidade e um Jonas maior (JONAS 2.0). Os textos dentro do jogo seguem o padrão do próprio Moon Sweepers, em inglês.
 
 | | |
 |---|---|
-| Versão | **0.3.1** |
+| Versão | **0.4.0** |
 | Jogo | Moon Sweepers patch 1.0.4 (Unity 6000.6, IL2CPP) |
 | Loader | BepInEx 6.0.0-be.791 + Moon Sweepers BepInEx Patcher V1.0.0 |
 | Multiplayer | Co-op; **todos** os jogadores precisam do mod na mesma versão |
@@ -50,6 +50,12 @@ devem ser os mesmos (ainda a confirmar em co-op).
 
 Sem suporte a controle (gamepad): no controle, vale o botão original do jogo.
 
+### 3. JONAS 2.0
+
+O Jonas (o robô que lança as cápsulas) aparece **1,5x maior**. É o mesmo modelo do jogo, só
+escalado: a área que ele limpa, a velocidade e a capacidade não mudam. Sempre ligado, sem upgrade
+para comprar. A escala fica em `JonasMaior.Escala` (`src/JonasMaior.cs`).
+
 ---
 
 ## Instalar
@@ -69,7 +75,7 @@ Todos do grupo precisam fazer igual, com a mesma versão do mod.
    (SHA-256 `b91bb4d4c12870abe79039a04173bbd5077322a8613bf90159a200a8370b1f94`).
 4. Abra o jogo uma vez e feche. O primeiro início demora um pouco mais.
 5. Copie `BetterMoonSweeper.dll` para `BepInEx\plugins`.
-6. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.3.1 carregado.` e,
+6. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.4.0 carregado.` e,
    no fim, `Chainloader startup complete`.
    As mensagens `Unsupported metadata version found! ... got 108` e
    `Class::Init signatures have been exhausted` são normais.
@@ -95,6 +101,9 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 
 ## Limitações conhecidas
 
+- **JONAS 2.0 ainda não foi visto em jogo.** Os colisores crescem junto com o modelo, mas a
+  navegação do robô continua usando o tamanho original; se ele afundar no chão, travar em
+  passagens ou as sapatas ficarem fora do lugar, diminua `JonasMaior.Escala`.
 - **Testes em jogo em andamento.** O mod carrega e cria a aba; os efeitos (velocidade das
   máquinas, payout, Ctrl) ainda estão sendo conferidos. Roteiros em `specs/*/quickstart.md`.
 - **Os níveis do mod ficam dentro do save do jogo.** O save separado ainda não foi feito; por
@@ -108,6 +117,7 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 
 | Versão | Mudanças |
 |---|---|
+| 0.4.0 | JONAS 2.0: o Jonas 1,5x maior (mesmo modelo, escalado) |
 | 0.3.1 | Textos em inglês no padrão do jogo (aba FACTORY); ids internos `bettermoonsweeper.*` |
 | 0.3.0 | Migração do MelonLoader para BepInEx 6: primeira versão que roda no jogo |
 | 0.2.0 | Novo nome (era JonasMod); atalho Ctrl da bota de gravidade; Lunar Contract com 6 níveis |
@@ -117,8 +127,6 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 
 - Save separado dos níveis do mod e bloqueio no lobby (spec 001).
 - Balancear preços e porcentagens jogando.
-- Fase 2: **JONAS 2.0**, um modelo maior do Jonas (no código, `Joonas`: `MoonJoonasRig`,
-  `MoonJoonasMotion`, `MoonJoonasGauge`).
 
 ---
 
@@ -153,7 +161,8 @@ dotnet run --project tools/ClassDump -c Release -- "<jogo>\BepInEx\interop\Assem
 | `src/BetterMoonSweeperMain.cs` | Ponto de entrada (plugin `BasePlugin` do BepInEx); aplica os patches Harmony |
 | `src/Upgrades.cs` | Os 3 upgrades: ids, textos, efeitos, preços e multiplicadores (tudo de um upgrade fica aqui) |
 | `src/FactoryTree.cs` | Injeta a aba FACTORY e os nós na `MoonUpgradeTree`, uma vez só, sem duplicar |
-| `src/Patches.cs` | Patches Harmony: velocidade das máquinas (`StepProduction`), payout (`PayoutMultiplier`), chamada por quadro do atalho (`MoonWorld.Update`) |
+| `src/Patches.cs` | Patches Harmony: velocidade das máquinas (`StepProduction`), payout (`PayoutMultiplier`), chamada por quadro do atalho (`MoonWorld.Update`), JONAS 2.0 (`MoonJoonasRig.Setup`) |
+| `src/JonasMaior.cs` | JONAS 2.0: escala a raiz do robô do Jonas, uma vez por robô, sem acumular |
 | `src/GravityBootsHotkey.cs` | Atalho Ctrl: detecção da tecla, bloqueios e `MoonWalker.ToggleGravityBoots()` |
 | `docs/assembly-csharp.txt` | Lista de classes e assinaturas do jogo (gerada por `tools/ClassDump`) |
 
@@ -193,6 +202,14 @@ IL2CPP: temos as assinaturas, não os corpos dos métodos.
   multiplica o resultado de `PayoutMultiplier`. Menu de dev: `DevAddMoney(playerId, dollars)`.
 - `MoonWalker`: `OwnsGravityBoots`, `GravityBootsOn`, `ToggleGravityBoots()`; jogador local em
   `MoonRunOver.LocalWalker`; teclado em `MoonInput.PlayKeyboard`.
+
+**Jonas** (no código, `Joonas`)
+
+- É um `MoonRobotVacuum` com um `MoonJoonasRig` (`robot.Launcher`): corpo, portas, sapatas e
+  mangueiras que lançam as cápsulas. `MoonJoonasRig.Setup(owner, world)` liga o rig ao robô; o
+  mod escala `owner.transform` num Postfix dele.
+- Tamanho de jogo (área limpa, colisão com o mapa) vem de campos: `footprint`, `halfLength`,
+  `halfWidth`, `cleaningWidth`, `MoonJoonasMotion.coveredHalfWidth`.
 
 **Estilo dos textos:** os textos do jogo ficam no `global-metadata.dat`. Resumos de uma frase,
 efeitos curtos ("+10% launch payout", "+8% speed, +15% jump"). Os textos do mod seguem esse padrão.
