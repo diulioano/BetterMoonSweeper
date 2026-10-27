@@ -1,6 +1,7 @@
-# JonasMod — Moon Sweepers
+# BetterMoonSweeper — Moon Sweepers
 
-Mod de upgrades de fábrica para o Moon Sweepers (Unity 6000.6, IL2CPP), feito com MelonLoader v0.7.3.
+Mod de upgrades de fábrica e qualidade de vida para o Moon Sweepers (Unity 6000.6, IL2CPP), feito com
+MelonLoader v0.7.3. Versão atual: **0.2.0**. Até a 0.1.0 o mod se chamava JonasMod.
 
 ## Status
 
@@ -10,18 +11,40 @@ Mod de upgrades de fábrica para o Moon Sweepers (Unity 6000.6, IL2CPP), feito c
 - [ ] **Bloqueado:** o MelonLoader não executa código de mod na Unity 6.6 (`No Support Module Loaded!`).
       Aguardando LavaGang/MelonLoader#1180 (Il2CppInterop v2). Ver issue LavaGang/MelonLoader#1159.
 - [~] Fase 1: patches escritos e compilando, **nunca testados em jogo**
+- [~] 0.2.0: atalho Ctrl da bota de gravidade e Contrato Lunar com 6 níveis, compilando, **nunca testados em jogo**
 - [ ] Fase 2: JONAS 2.0 (o Jonas se chama `Joonas` no código: `MoonJoonasRig`, `MoonJoonasMotion`, `MoonJoonasGauge`)
+
+## Especificações (Spec Kit)
+
+O projeto usa o [Spec Kit](https://github.com/github/spec-kit) (`specify`). Regras do projeto em
+[.specify/memory/constitution.md](.specify/memory/constitution.md); cada feature tem spec, plano e
+tarefas em `specs/`:
+
+| Spec | Feature | Estado |
+|---|---|---|
+| [001](specs/001-fabrica-v1/spec.md) | Fábrica v1 (linha de base deste README) | Parcial: falta bloqueio no lobby e save separado; nada testado em jogo |
+| [002](specs/002-toggle-bota-gravidade/spec.md) | Ctrl liga/desliga a bota de gravidade | Implementada, não testada |
+| [003](specs/003-contrato-lunar-niveis/spec.md) | Contrato Lunar com 6 níveis (+75% / +100% / +150% nos novos) | Implementada, não testada |
+
+Fluxo para features novas: `/speckit-specify` → `/speckit-plan` → `/speckit-tasks` →
+`/speckit-analyze` → `/speckit-implement`.
 
 ## Fase 1: design acordado
 
 | Decisão | Escolha |
 |---|---|
 | Multiplayer | Todos instalam o mod; quem não tiver ou estiver em versão diferente é bloqueado no lobby |
-| Upgrades | Compactador Turbo (1,5× / 2× / 3×), Prensa Turbo (stone fabric, mesmos níveis), Contrato Lunar (+10% / +25% / +50% de dinheiro) |
+| Upgrades | Compactador Turbo (1,5× / 2× / 3×), Prensa Turbo (stone fabric, mesmos níveis), Contrato Lunar (+10% / +25% / +50% / +75% / +100% / +150% de dinheiro, 6 níveis desde a 0.2.0) |
 | Preço | Cada nível custa ~3× o anterior (valores provisórios em `src/Upgrades.cs`) |
 | Pagamento | Qualquer jogador compra com o dinheiro do time; o host confirma |
 | Save | Arquivo separado do mod no PC do host; o save original não é alterado |
 | Interface | Aba nova "Fábrica" na árvore de upgrades; se não der, os nós vão para o ramo Economy |
+
+## Controles do mod
+
+| Tecla | O que faz |
+|---|---|
+| Ctrl (esquerdo ou direito) | Liga/desliga a bota de gravidade, se o jogador já a comprou. Ignorado no chat, em menus, em veículos/robô, no modo de construção, caído, na escada, descansando, em viagem ou sendo carregado. Sem suporte a controle (gamepad) |
 
 ## Como o jogo funciona por dentro
 
@@ -69,8 +92,9 @@ Tudo fica no namespace `Il2CppMoonCleaners`. A lista completa de classes está e
 
 | Arquivo | O que faz |
 |---|---|
-| `src/JonasModMain.cs` | Ponto de entrada do MelonLoader |
-| `src/Upgrades.cs` | Definição dos 3 upgrades (ids, preços, multiplicadores) |
+| `src/BetterMoonSweeperMain.cs` | Ponto de entrada do MelonLoader |
+| `src/Upgrades.cs` | Definição dos 3 upgrades (ids, preços, multiplicadores). Os ids `jonasmod.*` mantêm o nome antigo de propósito |
+| `src/GravityBootsHotkey.cs` | Atalho Ctrl da bota de gravidade |
 | `src/FactoryTree.cs` | Injeta o ramo "Fábrica" e os nós na `MoonUpgradeTree` |
 | `src/Patches.cs` | Patches Harmony: velocidade das máquinas e multiplicador de dinheiro |
 
@@ -88,8 +112,14 @@ Pré-requisitos: .NET SDK 6 ou mais novo, e o jogo aberto pelo menos uma vez com
 dotnet build -c Release
 ```
 
-O build copia `JonasMod.dll` para `<pasta do jogo>\Mods`. Para usar outra pasta do jogo:
+O build copia `BetterMoonSweeper.dll` para `<pasta do jogo>\Mods`. Para usar outra pasta do jogo:
 `dotnet build -p:GameDir="D:\caminho\Moon Sweepers"`.
+
+**Atualizando da 0.1.0:** apague `Mods\JonasMod.dll` (nome antigo), senão o jogo carrega os dois.
+
+Build de diagnóstico, com logs extras para investigar o jogo:
+`dotnet build -c Release -p:Diagnostico=true`. Depois rode o build normal de novo, para a DLL sem
+diagnóstico ficar em `Mods`.
 
 Para regenerar a lista de classes depois de uma atualização do jogo:
 

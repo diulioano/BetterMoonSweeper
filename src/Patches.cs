@@ -1,7 +1,7 @@
 using HarmonyLib;
 using Il2CppMoonCleaners;
 
-namespace JonasMod
+namespace BetterMoonSweeper
 {
     // Garante que os nós do mod existam antes da tela da árvore ser montada
     [HarmonyPatch(typeof(MoonUpgradeTreeUI), nameof(MoonUpgradeTreeUI.Build))]

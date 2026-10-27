@@ -3,7 +3,7 @@ using Il2CppMoonCleaners;
 using MelonLoader;
 using UnityEngine;
 
-namespace JonasMod
+namespace BetterMoonSweeper
 {
     // Injeta o ramo "Fábrica" e os nós do mod na árvore de upgrades do jogo.
     // Os nós passam a usar a compra, o save e a sincronização nativos (TryPurchaseTreeNode / CrewPurchase).
@@ -50,7 +50,7 @@ namespace JonasMod
             MoonUpgradeTree.Nodes = new Il2CppReferenceArray<MoonUpgradeTree.Node>(novos);
 
             _injetado = true;
-            Melon<JonasModMain>.Logger.Msg($"Árvore: {Upgrades.Todos.Length} nós injetados no ramo {(int)ramo} ({(UsarRamoProprio ? NomeDoRamo : "Economy")}).");
+            Melon<BetterMoonSweeperMain>.Logger.Msg($"Árvore: {Upgrades.Todos.Length} nós injetados no ramo {(int)ramo} ({(UsarRamoProprio ? NomeDoRamo : "Economy")}).");
         }
 
         private static MoonUpgradeTree.Node CriarNo(UpgradeDef def, MoonUpgradeTree.Branch ramo, int indice)

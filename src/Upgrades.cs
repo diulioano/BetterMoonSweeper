@@ -1,6 +1,6 @@
 using Il2CppMoonCleaners;
 
-namespace JonasMod
+namespace BetterMoonSweeper
 {
     public enum UpgradeId
     {
@@ -58,7 +58,7 @@ namespace JonasMod
             Nome = "Contrato Lunar",
             Resumo = "Aumenta todo o dinheiro recebido pelo time.",
             Icone = MoonUpgradeTree.Glyph.Payout,
-            Multiplicadores = new[] { 1.10f, 1.25f, 1.50f },
+            Multiplicadores = new[] { 1.10f, 1.25f, 1.50f, 1.75f, 2.00f, 2.50f },
             PrecoBase = 2500,
         };
 
