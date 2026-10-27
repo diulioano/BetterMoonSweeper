@@ -62,20 +62,18 @@ para comprar. A escala fica em `JonasMaior.Escala` (`src/JonasMaior.cs`).
 
 Todos do grupo precisam fazer igual, com a mesma versão do mod.
 
-1. **Só se você tinha uma versão antiga (JonasMod / 0.1.0 / 0.2.0):** apague da pasta do jogo
-   `version.dll`, `MelonLoader\`, `Mods\` (com a `JonasMod.dll`), `Plugins\`, `UserData\` e `UserLibs\`.
-2. Baixe o **BepInEx 6.0.0-be.791**, versão `Unity.IL2CPP` win-x64, no site oficial
+1. Baixe o **BepInEx 6.0.0-be.791**, versão `Unity.IL2CPP` win-x64, no site oficial
    ([builds.bepinex.dev](https://builds.bepinex.dev/projects/bepinex_be), arquivo
    `BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.791+b782da4.zip`). Extraia na pasta do jogo, ao lado do
    `MoonSweepers.exe`.
    (Steam → Moon Sweepers → Gerenciar → Procurar arquivos locais.)
-3. Baixe o **Moon Sweepers BepInEx Patcher V1.0.0** no Nexus
+2. Baixe o **Moon Sweepers BepInEx Patcher V1.0.0** no Nexus
    ([mod 9](https://www.nexusmods.com/moonsweepers/mods/9)) e extraia na pasta do jogo. Deve ficar
    `BepInEx\patchers\MoonSweepers.ModEngine\MoonSweepers.ModEngine.dll`
    (SHA-256 `b91bb4d4c12870abe79039a04173bbd5077322a8613bf90159a200a8370b1f94`).
-4. Abra o jogo uma vez e feche. O primeiro início demora um pouco mais.
-5. Copie `BetterMoonSweeper.dll` para `BepInEx\plugins`.
-6. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.4.0 carregado.` e,
+3. Abra o jogo uma vez e feche. O primeiro início demora um pouco mais.
+4. Copie `BetterMoonSweeper.dll` para `BepInEx\plugins`.
+5. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.4.0 carregado.` e,
    no fim, `Chainloader startup complete`.
    As mensagens `Unsupported metadata version found! ... got 108` e
    `Class::Init signatures have been exhausted` são normais.
@@ -119,9 +117,9 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 |---|---|
 | 0.4.0 | JONAS 2.0: o Jonas 1,5x maior (mesmo modelo, escalado) |
 | 0.3.1 | Textos em inglês no padrão do jogo (aba FACTORY); ids internos `bettermoonsweeper.*` |
-| 0.3.0 | Migração do MelonLoader para BepInEx 6: primeira versão que roda no jogo |
+| 0.3.0 | Migração para BepInEx 6: primeira versão que roda no jogo |
 | 0.2.0 | Novo nome (era JonasMod); atalho Ctrl da bota de gravidade; Lunar Contract com 6 níveis |
-| 0.1.0 | Aba de fábrica com Turbo Compactor, Turbo Stone Press e Lunar Contract (3 níveis). Não rodava: o MelonLoader 0.7.3 não executa mods na Unity 6000.6 |
+| 0.1.0 | Aba de fábrica com Turbo Compactor, Turbo Stone Press e Lunar Contract (3 níveis). Não rodava no jogo |
 
 ## Próximos passos
 
@@ -233,5 +231,5 @@ Fluxo para features novas: `/speckit-specify` → `/speckit-plan` → `/speckit-
 
 ### Backups locais
 
-Em `Documents\MoonSweepers-backup-2026-10-27`: o jogo antes de qualquer loader, `melonloader\`
-(instalação antiga), `Mods-antes-do-rename\` (`JonasMod.dll`) e `saves-antes-bepinex\`.
+Em `Documents\MoonSweepers-backup-2026-10-27`: o jogo antes de qualquer loader,
+`Mods-antes-do-rename\` (`JonasMod.dll`) e `saves-antes-bepinex\`.
