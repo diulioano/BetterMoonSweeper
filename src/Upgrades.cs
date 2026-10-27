@@ -8,6 +8,10 @@ namespace BetterMoonSweeper
         CompactadorTurbo,
         PrensaTurbo,
         ContratoLunar,
+        ReceptorGrande,
+        SiloGrande,
+        EstacaoGrande,
+        EsteiraTurbo,
     }
 
     public sealed class UpgradeDef
@@ -70,6 +74,54 @@ namespace BetterMoonSweeper
             PrecoBase = 2500,
         };
 
-        public static readonly UpgradeDef[] Todos = { CompactadorTurbo, PrensaTurbo, ContratoLunar };
+        public static readonly UpgradeDef ReceptorGrande = new()
+        {
+            Id = UpgradeId.ReceptorGrande,
+            NodeId = "bettermoonsweeper.catcher",
+            Nome = "Bigger Catcher",
+            Resumo = "Deeper hoppers: capsule catchers hold more dust before they fill up.",
+            TextoDoEfeito = m => $"+{Porcento(m)}% catcher storage",
+            Icone = MoonUpgradeTree.Glyph.Container,
+            Multiplicadores = new[] { 1.5f, 2f, 3f },
+            PrecoBase = 2000,
+        };
+
+        public static readonly UpgradeDef SiloGrande = new()
+        {
+            Id = UpgradeId.SiloGrande,
+            NodeId = "bettermoonsweeper.silo",
+            Nome = "Bigger Silo",
+            Resumo = "Reinforced tanks: the garage silo stores more dust.",
+            TextoDoEfeito = m => $"+{Porcento(m)}% silo storage",
+            Icone = MoonUpgradeTree.Glyph.Hopper,
+            Multiplicadores = new[] { 1.5f, 2f, 3f },
+            PrecoBase = 2000,
+        };
+
+        public static readonly UpgradeDef EstacaoGrande = new()
+        {
+            Id = UpgradeId.EstacaoGrande,
+            NodeId = "bettermoonsweeper.station",
+            Nome = "Bigger Station",
+            Resumo = "Extra bays: the collector station stores more dust.",
+            TextoDoEfeito = m => $"+{Porcento(m)}% station storage",
+            Icone = MoonUpgradeTree.Glyph.Unload,
+            Multiplicadores = new[] { 1.5f, 2f, 3f },
+            PrecoBase = 3000,
+        };
+
+        public static readonly UpgradeDef EsteiraTurbo = new()
+        {
+            Id = UpgradeId.EsteiraTurbo,
+            NodeId = "bettermoonsweeper.belts",
+            Nome = "Turbo Belts",
+            Resumo = "Tuned rollers: conveyor belts move capsules faster.",
+            TextoDoEfeito = m => $"+{Porcento(m)}% belt speed",
+            Icone = MoonUpgradeTree.Glyph.Express,
+            Multiplicadores = new[] { 1.25f, 1.5f, 2f },
+            PrecoBase = 1500,
+        };
+
+        public static readonly UpgradeDef[] Todos = { CompactadorTurbo, PrensaTurbo, ContratoLunar, ReceptorGrande, SiloGrande, EstacaoGrande, EsteiraTurbo };
     }
 }

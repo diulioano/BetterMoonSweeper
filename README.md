@@ -6,7 +6,7 @@ gravidade e um Jonas maior (JONAS 2.0). Os textos dentro do jogo seguem o padrã
 
 | | |
 |---|---|
-| Versão | **0.4.0** |
+| Versão | **0.5.0** |
 | Jogo | Moon Sweepers patch 1.0.4 (Unity 6000.6, IL2CPP) |
 | Loader | BepInEx 6.0.0-be.791 + Moon Sweepers BepInEx Patcher V1.0.0 |
 | Multiplayer | Co-op; **todos** os jogadores precisam do mod na mesma versão |
@@ -27,6 +27,10 @@ qualquer outro nó: com o dinheiro do time, e o host confirma.
 | **Turbo Compactor** | *"Overclocked motors: the dust compactor turns dust into sand faster."* | +50% / +100% / +200% compactor speed | 1.000 / 3.000 / 9.000 |
 | **Turbo Stone Press** | *"Hotter kilns: the stone press bakes blocks faster."* | +50% / +100% / +200% stone press speed | 1.500 / 4.500 / 13.500 |
 | **Lunar Contract** | *"A bigger cut of every sale: more money for the whole crew."* | +10% / +25% / +50% / +75% / +100% / +150% payout | 2.500 / 7.500 / 22.500 / 67.500 / 202.500 / 607.500 |
+| **Bigger Catcher** | *"Deeper hoppers: capsule catchers hold more dust before they fill up."* | +50% / +100% / +200% catcher storage | 2.000 / 6.000 / 18.000 |
+| **Bigger Silo** | *"Reinforced tanks: the garage silo stores more dust."* | +50% / +100% / +200% silo storage | 2.000 / 6.000 / 18.000 |
+| **Bigger Station** | *"Extra bays: the collector station stores more dust."* | +50% / +100% / +200% station storage | 3.000 / 9.000 / 27.000 |
+| **Turbo Belts** | *"Tuned rollers: conveyor belts move capsules faster."* | +25% / +50% / +100% belt speed | 1.500 / 4.500 / 13.500 |
 
 - **Turbo Compactor e Turbo Stone Press** encurtam o tempo de cada ciclo da máquina: +100% de
   velocidade significa ciclos com metade do tempo; +200%, com um terço.
@@ -67,13 +71,18 @@ Todos do grupo precisam fazer igual, com a mesma versão do mod.
    `BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.791+b782da4.zip`). Extraia na pasta do jogo, ao lado do
    `MoonSweepers.exe`.
    (Steam → Moon Sweepers → Gerenciar → Procurar arquivos locais.)
+   **Confira o zip:** o nome precisa ter `Unity.IL2CPP`, `win-x64` e `be.791`. Os zips `x86` e
+   `Unity.Mono` trazem um `winhttp.dll` diferente e o jogo abre normalmente, mas sem BepInEx, sem
+   console e sem `BepInEx\LogOutput.log`. Para ter certeza, rode na pasta do jogo
+   `Get-FileHash winhttp.dll -Algorithm SHA256`: o resultado certo é
+   `0F39399EBA05DEA9419781187AE2A6B0555AFCDF1859F1319B6213BE7729013B` (26624 bytes).
 2. Baixe o **Moon Sweepers BepInEx Patcher V1.0.0** no Nexus
    ([mod 9](https://www.nexusmods.com/moonsweepers/mods/9)) e extraia na pasta do jogo. Deve ficar
    `BepInEx\patchers\MoonSweepers.ModEngine\MoonSweepers.ModEngine.dll`
    (SHA-256 `b91bb4d4c12870abe79039a04173bbd5077322a8613bf90159a200a8370b1f94`).
 3. Abra o jogo uma vez e feche. O primeiro início demora um pouco mais.
 4. Copie `BetterMoonSweeper.dll` para `BepInEx\plugins`.
-5. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.4.0 carregado.` e,
+5. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.5.0 carregado.` e,
    no fim, `Chainloader startup complete`.
    As mensagens `Unsupported metadata version found! ... got 108` e
    `Class::Init signatures have been exhausted` são normais.
@@ -115,6 +124,7 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 
 | Versão | Mudanças |
 |---|---|
+| 0.5.0 | Upgrades de armazenamento (receptor de cápsulas, silo, estação coletora) e Turbo Belts (velocidade das esteiras); efeitos ainda não conferidos em jogo |
 | 0.4.0 | JONAS 2.0: o Jonas 1,5x maior (mesmo modelo, escalado) |
 | 0.3.1 | Textos em inglês no padrão do jogo (aba FACTORY); ids internos `bettermoonsweeper.*` |
 | 0.3.0 | Migração para BepInEx 6: primeira versão que roda no jogo |
@@ -225,6 +235,7 @@ tarefas e roteiro de teste em `specs/`:
 | [003](specs/003-contrato-lunar-niveis/spec.md) | Lunar Contract com 6 níveis | Implementada, teste em jogo pendente |
 | [004](specs/004-migracao-bepinex/spec.md) | Migração para BepInEx 6 | Implementada; carrega e injeta a aba |
 | [005](specs/005-textos-ingles/spec.md) | Textos em inglês; ids `bettermoonsweeper.*` | Implementada, teste em jogo pendente |
+| [006](specs/006-armazenamento/spec.md) | Armazenamento, receptor de cápsulas e esteiras | Implementada, teste em jogo pendente |
 
 Fluxo para features novas: `/speckit-specify` → `/speckit-plan` → `/speckit-tasks` →
 `/speckit-analyze` (contexto fresco) → `/speckit-implement`.
