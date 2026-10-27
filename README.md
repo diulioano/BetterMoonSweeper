@@ -1,17 +1,43 @@
 # BetterMoonSweeper — Moon Sweepers
 
-Mod de upgrades de fábrica e qualidade de vida para o Moon Sweepers (Unity 6000.6, IL2CPP), feito com
-MelonLoader v0.7.3. Versão atual: **0.2.0**. Até a 0.1.0 o mod se chamava JonasMod.
+Mod de upgrades de fábrica e qualidade de vida para o Moon Sweepers (Unity 6000.6, IL2CPP), plugin do
+BepInEx 6. Versão atual: **0.3.0**. Até a 0.1.0 o mod se chamava JonasMod; até a 0.2.0 usava MelonLoader.
+
+## Instalar (jogadores)
+
+Todos do grupo precisam da mesma instalação e da mesma versão do mod.
+
+1. **Instalação antiga (só se você tinha a 0.1.0/0.2.0):** apague da pasta do jogo `version.dll`,
+   `MelonLoader\`, `Mods\` (com a `JonasMod.dll`), `Plugins\`, `UserData\` e `UserLibs\`.
+2. Baixe o **BepInEx 6.0.0-be.791**, versão `Unity.IL2CPP` win-x64, no site oficial
+   ([builds.bepinex.dev](https://builds.bepinex.dev/projects/bepinex_be), arquivo
+   `BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.791+b782da4.zip`) e extraia na pasta do jogo, ao lado do
+   `MoonSweepers.exe`.
+3. Baixe o **Moon Sweepers BepInEx Patcher V1.0.0** no Nexus
+   ([mod 9](https://www.nexusmods.com/moonsweepers/mods/9)) e extraia na pasta do jogo. Deve ficar
+   `BepInEx\patchers\MoonSweepers.ModEngine\MoonSweepers.ModEngine.dll`
+   (SHA-256 `b91bb4d4c12870abe79039a04173bbd5077322a8613bf90159a200a8370b1f94`).
+4. Abra o jogo uma vez e feche. O primeiro início demora um pouco mais.
+5. Copie `BetterMoonSweeper.dll` para `BepInEx\plugins`.
+6. Abra o jogo. Em `BepInEx\LogOutput.log` deve aparecer `BetterMoonSweeper 0.3.0 carregado.` e,
+   no fim, `Chainloader startup complete`. As mensagens `Unsupported metadata version found! ...
+   got 108` e `Class::Init signatures have been exhausted` são esperadas.
+
+## Desinstalar
+
+Apague da pasta do jogo: `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`, `changelog.txt`,
+`dotnet\` e `BepInEx\`. O jogo volta ao original.
+
+**Saves:** os níveis dos upgrades do mod ainda ficam no save do jogo (o save separado não foi feito).
+Faça backup de `%USERPROFILE%\AppData\LocalLow\DragDropGames\MoonSweepers` antes de jogar com o mod.
 
 ## Status
 
-- [x] MelonLoader v0.7.3 instalado na pasta do jogo
-- [x] Geração das DLLs do jogo (com Cpp2IL da branch `development`, que suporta metadata 108)
+- [x] BepInEx 6.0.0-be.791 + MoonSweepers BepInEx Patcher instalados; o mod carrega (0.3.0, 2026-10-27)
 - [x] .NET 8 SDK instalado; o mod compila
-- [ ] **Bloqueado:** o MelonLoader não executa código de mod na Unity 6.6 (`No Support Module Loaded!`).
-      Aguardando LavaGang/MelonLoader#1180 (Il2CppInterop v2). Ver issue LavaGang/MelonLoader#1159.
-- [~] Fase 1: patches escritos e compilando, **nunca testados em jogo**
-- [~] 0.2.0: atalho Ctrl da bota de gravidade e Contrato Lunar com 6 níveis, compilando, **nunca testados em jogo**
+- [~] Fase 1, atalho Ctrl e Contrato Lunar com 6 níveis: carregam, **testes em jogo em andamento**
+- Histórico: com o MelonLoader 0.7.3 o mod carregava mas não executava (`No Support Module Loaded!`,
+  Il2CppInterop sem suporte à Unity 6000.6). Por isso a migração para BepInEx (spec 004).
 - [ ] Fase 2: JONAS 2.0 (o Jonas se chama `Joonas` no código: `MoonJoonasRig`, `MoonJoonasMotion`, `MoonJoonasGauge`)
 
 ## Especificações (Spec Kit)
@@ -25,6 +51,7 @@ tarefas em `specs/`:
 | [001](specs/001-fabrica-v1/spec.md) | Fábrica v1 (linha de base deste README) | Parcial: falta bloqueio no lobby e save separado; nada testado em jogo |
 | [002](specs/002-toggle-bota-gravidade/spec.md) | Ctrl liga/desliga a bota de gravidade | Implementada, não testada |
 | [003](specs/003-contrato-lunar-niveis/spec.md) | Contrato Lunar com 6 níveis (+75% / +100% / +150% nos novos) | Implementada, não testada |
+| [004](specs/004-migracao-bepinex/spec.md) | Migração para BepInEx 6 | Implementada; mod carrega; testes em jogo em andamento |
 
 Fluxo para features novas: `/speckit-specify` → `/speckit-plan` → `/speckit-tasks` →
 `/speckit-analyze` → `/speckit-implement`.
@@ -48,8 +75,8 @@ Fluxo para features novas: `/speckit-specify` → `/speckit-plan` → `/speckit-
 
 ## Como o jogo funciona por dentro
 
-Tudo fica no namespace `Il2CppMoonCleaners`. A lista completa de classes está em
-[docs/assembly-csharp.txt](docs/assembly-csharp.txt), gerada por `tools/ClassDump`.
+Tudo fica no namespace `MoonCleaners` (nas DLLs geradas em `BepInEx\interop`). A lista completa de
+classes está em [docs/assembly-csharp.txt](docs/assembly-csharp.txt), gerada por `tools/ClassDump`.
 
 ### Máquinas de produção
 
@@ -92,11 +119,11 @@ Tudo fica no namespace `Il2CppMoonCleaners`. A lista completa de classes está e
 
 | Arquivo | O que faz |
 |---|---|
-| `src/BetterMoonSweeperMain.cs` | Ponto de entrada do MelonLoader |
+| `src/BetterMoonSweeperMain.cs` | Ponto de entrada (plugin do BepInEx); aplica os patches Harmony |
 | `src/Upgrades.cs` | Definição dos 3 upgrades (ids, preços, multiplicadores). Os ids `jonasmod.*` mantêm o nome antigo de propósito |
 | `src/GravityBootsHotkey.cs` | Atalho Ctrl da bota de gravidade |
 | `src/FactoryTree.cs` | Injeta o ramo "Fábrica" e os nós na `MoonUpgradeTree` |
-| `src/Patches.cs` | Patches Harmony: velocidade das máquinas e multiplicador de dinheiro |
+| `src/Patches.cs` | Patches Harmony: velocidade das máquinas, multiplicador de dinheiro e chamada por quadro do atalho Ctrl (`MoonWorld.Update`) |
 
 ### Ainda não implementado
 
@@ -105,29 +132,28 @@ Tudo fica no namespace `Il2CppMoonCleaners`. A lista completa de classes está e
 
 ## Compilar
 
-Pré-requisitos: .NET SDK 6 ou mais novo, e o jogo aberto pelo menos uma vez com o MelonLoader
-(isso gera `MelonLoader\Il2CppAssemblies`).
+Pré-requisitos: .NET SDK 6 ou mais novo, e o jogo aberto pelo menos uma vez com o BepInEx e o patcher
+(isso gera `BepInEx\interop`).
 
 ```
 dotnet build -c Release
 ```
 
-O build copia `BetterMoonSweeper.dll` para `<pasta do jogo>\Mods`. Para usar outra pasta do jogo:
+O build copia `BetterMoonSweeper.dll` para `<pasta do jogo>\BepInEx\plugins` (com o jogo fechado; a
+DLL fica travada enquanto ele roda). Para usar outra pasta do jogo:
 `dotnet build -p:GameDir="D:\caminho\Moon Sweepers"`.
-
-**Atualizando da 0.1.0:** apague `Mods\JonasMod.dll` (nome antigo), senão o jogo carrega os dois.
 
 Build de diagnóstico, com logs extras para investigar o jogo:
 `dotnet build -c Release -p:Diagnostico=true`. Depois rode o build normal de novo, para a DLL sem
-diagnóstico ficar em `Mods`.
+diagnóstico ficar em `BepInEx\plugins`.
 
 Para regenerar a lista de classes depois de uma atualização do jogo:
 
 ```
-dotnet run --project tools/ClassDump -c Release -- "<jogo>\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll" docs/assembly-csharp.txt
+dotnet run --project tools/ClassDump -c Release -- "<jogo>\BepInEx\interop\Assembly-CSharp.dll" docs/assembly-csharp.txt
 ```
 
-## Desinstalar o MelonLoader
+## Backups locais
 
-Apague `version.dll`, `MelonLoader\`, `Mods\`, `Plugins\`, `UserData\` e `UserLibs\` da pasta do jogo.
-O backup feito antes da instalação está em `Documents\MoonSweepers-backup-2026-10-27`.
+Em `Documents\MoonSweepers-backup-2026-10-27`: estado do jogo antes de qualquer loader, `melonloader\`
+(instalação antiga do MelonLoader), `Mods-antes-do-rename\` (`JonasMod.dll`) e `saves-antes-bepinex\`.

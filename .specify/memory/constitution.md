@@ -1,12 +1,11 @@
 <!--
 Sync Impact Report
-- Version change: (template) → 1.0.0
-- Princípios adicionados: I. Co-op só entre jogadores com o mod; II. Instalação do jogo protegida;
-  III. Save original intocado; IV. Patches mínimos e idempotentes; V. Símbolos do jogo rastreáveis;
-  VI. Validação em jogo antes de "pronto"
-- Seções adicionadas: Restrições Técnicas, Fluxo de Desenvolvimento, Governance
-- Seções removidas: nenhuma
-- Templates: plan/spec/tasks lidos em runtime, sem alteração necessária
+- Version change: 1.0.0 → 1.1.0 (MINOR: troca de loader, texto dos princípios II e VI)
+- Princípios modificados: II (deploy em `BepInEx\plugins` em vez de `Mods`); VI (removida a
+  referência ao bloqueio do MelonLoader)
+- Seções modificadas: Restrições Técnicas (BepInEx 6 be.791 + patcher; namespace `MoonCleaners`)
+- Seções adicionadas/removidas: nenhuma
+- Origem: specs/004-migracao-bepinex
 - TODOs: nenhum
 -->
 
@@ -29,8 +28,8 @@ a sessão de todos.
 
 - Baixar qualquer coisa, ou alterar arquivos na pasta do jogo, MUST ter autorização explícita do
   usuário, e um backup MUST ser feito antes.
-- O build MAY copiar apenas `BetterMoonSweeper.dll` para `<jogo>\Mods`. Qualquer outro arquivo do jogo é
-  somente leitura para o projeto.
+- O build MAY copiar apenas `BetterMoonSweeper.dll` para `<jogo>\BepInEx\plugins`. Qualquer outro
+  arquivo do jogo é somente leitura para o projeto.
 
 Razão: o jogo é IL2CPP e não há como "recompilar" de volta; um arquivo corrompido exige
 reinstalação e pode afetar saves na Steam Cloud.
@@ -69,15 +68,16 @@ Razão: o código do jogo não é legível (IL2CPP); só temos assinaturas, não
 - Uma feature só MAY ser marcada como concluída depois de compilar (`dotnet build -c Release`) e
   de os cenários do `quickstart.md` terem sido executados em jogo, incluindo uma sessão co-op com
   pelo menos 2 jogadores quando a feature mexer em estado compartilhado.
-- Enquanto o MelonLoader não executar código na Unity 6.6 (ver README), features ficam no máximo
-  em "implementada, não testada".
+- Enquanto os cenários não forem executados em jogo, a feature fica no máximo em "implementada,
+  não testada".
 
 Razão: não há testes automatizados viáveis contra um jogo IL2CPP fechado.
 
 ## Restrições Técnicas
 
 - Jogo: Moon Sweepers, Unity 6000.6.0f1, IL2CPP (metadata 108).
-- Loader: MelonLoader v0.7.3 + HarmonyX; tipos do jogo vêm de `Il2CppMoonCleaners` via Il2CppInterop.
+- Loader: BepInEx 6.0.0-be.791 (Unity.IL2CPP win-x64) + MoonSweepers BepInEx Patcher (Nexus mod 9)
+  + HarmonyX; tipos do jogo vêm do namespace `MoonCleaners` das DLLs geradas em `BepInEx\interop`.
 - Projeto: `BetterMoonSweeper.csproj`, net6.0, uma única DLL em `src/`.
 - Textos visíveis ao jogador, documentação e comunicação MUST estar em português.
 - Nada de dependências NuGet novas sem autorização (regra II).
@@ -99,4 +99,4 @@ Razão: não há testes automatizados viáveis contra um jogo IL2CPP fechado.
   redefine princípio; MINOR adiciona princípio ou seção; PATCH ajusta texto).
 - Orientações do dia a dia ficam em `CLAUDE.md`; este arquivo só guarda regras.
 
-**Version**: 1.0.0 | **Ratified**: 2026-10-27 | **Last Amended**: 2026-10-27
+**Version**: 1.1.0 | **Ratified**: 2026-10-27 | **Last Amended**: 2026-10-27

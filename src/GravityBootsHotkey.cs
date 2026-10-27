@@ -1,5 +1,5 @@
-using Il2CppMoonCleaners;
-using MelonLoader;
+using MoonCleaners;
+
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
@@ -22,7 +22,7 @@ namespace BetterMoonSweeper
                 // Loga só a primeira vez, para não inundar o log se um símbolo mudar numa atualização do jogo
                 if (_erroLogado) return;
                 _erroLogado = true;
-                Melon<BetterMoonSweeperMain>.Logger.Error($"Atalho da bota de gravidade falhou: {e}");
+                BetterMoonSweeperMain.Log.LogError($"Atalho da bota de gravidade falhou: {e}");
             }
         }
 
@@ -56,11 +56,11 @@ namespace BetterMoonSweeper
             if (walker.Mounted || walker.Passenger || walker.Riding != null || walker.Building || MoonInput.BuildToolInHand) return;
             if (walker.Knocked || walker.Climbing || walker.Resting || walker.Travelling || walker.Held || walker.Flying) return;
 
-            var log = Melon<BetterMoonSweeperMain>.Logger;
+            var log = BetterMoonSweeperMain.Log;
             if (walker.ToggleGravityBoots())
-                log.Msg($"Bota de gravidade: {(walker.GravityBootsOn ? "ligada" : "desligada")} (Ctrl)");
+                log.LogInfo($"Bota de gravidade: {(walker.GravityBootsOn ? "ligada" : "desligada")} (Ctrl)");
             else
-                log.Msg("ToggleGravityBoots retornou false");
+                log.LogInfo("ToggleGravityBoots retornou false");
         }
 
 #if DIAGNOSTICO
@@ -71,7 +71,7 @@ namespace BetterMoonSweeper
         {
             if (_diagnosticoFeito) return;
             _diagnosticoFeito = true;
-            var log = Melon<BetterMoonSweeperMain>.Logger;
+            var log = BetterMoonSweeperMain.Log;
             int usamCtrl = 0;
             foreach (var prop in typeof(MoonInput).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static))
             {
@@ -81,11 +81,11 @@ namespace BetterMoonSweeper
                 foreach (var k in keys)
                     if (k == Key.LeftCtrl || k == Key.RightCtrl)
                     {
-                        log.Msg($"[diagnóstico] MoonInput.{prop.Name} usa {k}");
+                        log.LogInfo($"[diagnóstico] MoonInput.{prop.Name} usa {k}");
                         usamCtrl++;
                     }
             }
-            log.Msg($"[diagnóstico] Bindings com Ctrl: {usamCtrl}");
+            log.LogInfo($"[diagnóstico] Bindings com Ctrl: {usamCtrl}");
         }
 #endif
     }

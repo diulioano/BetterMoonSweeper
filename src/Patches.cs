@@ -1,5 +1,5 @@
 using HarmonyLib;
-using Il2CppMoonCleaners;
+using MoonCleaners;
 
 namespace BetterMoonSweeper
 {
@@ -8,6 +8,14 @@ namespace BetterMoonSweeper
     internal static class TreeUIBuildPatch
     {
         private static void Prefix() => FactoryTree.Injetar();
+    }
+
+    // Chama o atalho Ctrl da bota de gravidade uma vez por quadro durante a partida.
+    // Evita AddComponent, que depende de class injection (specs/004, research R3)
+    [HarmonyPatch(typeof(MoonWorld), nameof(MoonWorld.Update))]
+    internal static class WorldUpdatePatch
+    {
+        private static void Postfix() => GravityBootsHotkey.Tick();
     }
 
     // Acelera o compactador e a prensa de pedra ajustando o tempo de ciclo das specs estáticas

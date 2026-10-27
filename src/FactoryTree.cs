@@ -1,6 +1,6 @@
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
-using Il2CppMoonCleaners;
-using MelonLoader;
+using MoonCleaners;
+
 using UnityEngine;
 
 namespace BetterMoonSweeper
@@ -17,40 +17,51 @@ namespace BetterMoonSweeper
         public static readonly Color CorDoRamo = new(1f, 0.55f, 0.15f);
 
         private static bool _injetado;
+        private static bool _desistiu;
 
         public static MoonUpgradeTree.Branch Ramo =>
             UsarRamoProprio ? (MoonUpgradeTree.Branch)MoonUpgradeTree.BranchNames.Length - (_injetado ? 1 : 0)
                             : MoonUpgradeTree.Branch.Economy;
 
+        // Chamado a cada quadro pelos Prefix: depois de uma falha, não tenta de novo (senão a aba seria duplicada)
         public static void Injetar()
         {
-            if (_injetado) return;
+            if (_injetado || _desistiu) return;
+            try { InjetarNos(); }
+            catch (System.Exception e)
+            {
+                _desistiu = true;
+                BetterMoonSweeperMain.Log.LogError($"Falha ao injetar a aba {NomeDoRamo}; o mod não vai tentar de novo: {e}");
+            }
+        }
 
+        private static void InjetarNos()
+        {
             var nodes = MoonUpgradeTree.Nodes;
             if (nodes == null) return; // árvore ainda não montada pelo jogo
             foreach (var n in nodes)
                 if (n.id == Upgrades.CompactadorTurbo.NodeId) { _injetado = true; return; }
 
+            // Os nós são montados antes de mexer nos ramos: se CriarNo falhar (conversão do delegate effect),
+            // a árvore do jogo fica intacta
             var ramo = Ramo;
+            var novos = new MoonUpgradeTree.Node[nodes.Length + Upgrades.Todos.Length];
+            for (int i = 0; i < nodes.Length; i++) novos[i] = nodes[i];
+            for (int i = 0; i < Upgrades.Todos.Length; i++)
+                novos[nodes.Length + i] = CriarNo(Upgrades.Todos[i], ramo, i);
+
             if (UsarRamoProprio)
             {
                 MoonUpgradeTree.BranchNames = Append(MoonUpgradeTree.BranchNames, NomeDoRamo);
                 MoonUpgradeTree.BranchTaglines = Append(MoonUpgradeTree.BranchTaglines, SubtituloDoRamo);
                 MoonUpgradeTree.BranchColors = Append(MoonUpgradeTree.BranchColors, CorDoRamo);
             }
-
-            var novos = new MoonUpgradeTree.Node[nodes.Length + Upgrades.Todos.Length];
-            for (int i = 0; i < nodes.Length; i++) novos[i] = nodes[i];
-            for (int i = 0; i < Upgrades.Todos.Length; i++)
-            {
-                var node = CriarNo(Upgrades.Todos[i], ramo, i);
-                novos[nodes.Length + i] = node;
-                MoonUpgradeTree.byId?.TryAdd(node.id, node);
-            }
+            for (int i = nodes.Length; i < novos.Length; i++)
+                MoonUpgradeTree.byId?.TryAdd(novos[i].id, novos[i]);
             MoonUpgradeTree.Nodes = new Il2CppReferenceArray<MoonUpgradeTree.Node>(novos);
 
             _injetado = true;
-            Melon<BetterMoonSweeperMain>.Logger.Msg($"Árvore: {Upgrades.Todos.Length} nós injetados no ramo {(int)ramo} ({(UsarRamoProprio ? NomeDoRamo : "Economy")}).");
+            BetterMoonSweeperMain.Log.LogInfo($"Árvore: {Upgrades.Todos.Length} nós injetados no ramo {(int)ramo} ({(UsarRamoProprio ? NomeDoRamo : "Economy")}).");
         }
 
         private static MoonUpgradeTree.Node CriarNo(UpgradeDef def, MoonUpgradeTree.Branch ramo, int indice)

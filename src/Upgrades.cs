@@ -1,4 +1,4 @@
-using Il2CppMoonCleaners;
+using MoonCleaners;
 
 namespace BetterMoonSweeper
 {

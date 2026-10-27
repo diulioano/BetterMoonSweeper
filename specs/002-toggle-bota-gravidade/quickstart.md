@@ -2,7 +2,7 @@
 
 ## Pré-requisitos
 
-- MelonLoader executando mods na versão atual do jogo (hoje bloqueado; ver `README.md`).
+- BepInEx 6 be.791 + patcher instalados e o mod carregado (ver "Instalar" no `README.md` e a spec 004).
 - `dotnet build -c Release` sem erros (copia `BetterMoonSweeper.dll` para `<jogo>\Mods`).
 - Um save onde o time já comprou a bota de gravidade (ramo Suit) e outro onde não comprou.
   Para chegar lá rápido, use o menu de dev do jogo (`DevAddMoney`) para ter dinheiro.
@@ -30,6 +30,6 @@
 
 ## Diagnóstico
 
-- Log do mod: `<jogo>\MelonLoader\Latest.log`.
+- Log do mod: `<jogo>\BepInEx\LogOutput.log`.
 - Se o cenário 1 ligar a bota sem som ou o 12 não sincronizar, seguir os fallbacks de R1 em
   [research.md](research.md).
