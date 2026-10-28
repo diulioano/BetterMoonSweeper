@@ -6,7 +6,7 @@ gravidade e um Jonas maior (JONAS 2.0). Os textos dentro do jogo seguem o padrã
 
 | | |
 |---|---|
-| Versão | **0.5.3** |
+| Versão | **0.5.4** |
 | Jogo | Moon Sweepers patch 1.0.4 (Unity 6000.6, IL2CPP) |
 | Loader | BepInEx 6.0.0-be.791 + Moon Sweepers BepInEx Patcher V1.0.0 |
 | Multiplayer | Co-op; **todos** os jogadores precisam do mod na mesma versão |
@@ -80,7 +80,7 @@ Todos do grupo precisam fazer igual, com a mesma versão do mod.
    (SHA-256 `b91bb4d4c12870abe79039a04173bbd5077322a8613bf90159a200a8370b1f94`).
 3. Abra o jogo uma vez e feche. O primeiro início demora um pouco mais.
 4. Copie `BetterMoonSweeper.dll` para `BepInEx\plugins`.
-5. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.5.3 carregado.` e,
+5. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.5.4 carregado.` e,
    no fim, `Chainloader startup complete`.
    As mensagens `Unsupported metadata version found! ... got 108` e
    `Class::Init signatures have been exhausted` são normais.
@@ -122,6 +122,7 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 
 | Versão | Mudanças |
 |---|---|
+| 0.5.4 | Níveis do mod resetavam: os nós agora são criados antes de o jogo restaurar o save (hipótese; a conferir em jogo) |
 | 0.5.3 | Bigger Catcher e Turbo Belts de volta, sem escrever nas constantes do jogo (experimental, ainda não conferido em jogo) |
 | 0.5.2 | Removidos Bigger Catcher, Bigger Silo e Turbo Belts: escrever nas constantes de capacidade do jogo causava crash (AccessViolation) |
 | 0.5.1 | Removido o Bigger Station (efeito não confirmado) |

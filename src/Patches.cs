@@ -10,6 +10,21 @@ namespace BetterMoonSweeper
         private static void Prefix() => FactoryTree.Injetar();
     }
 
+    // Os níveis dos nós do mod ficam no save do jogo. Se a restauração do save rodar antes dos nós
+    // existirem na árvore, o jogo pode descartar os níveis de ids que ele não conhece (níveis "resetados").
+    // Por isso os nós são criados antes de restaurar e de aplicar compras vindas do host.
+    [HarmonyPatch(typeof(MoonWorld), nameof(MoonWorld.RestoreUpgradeTree))]
+    internal static class RestoreUpgradeTreePatch
+    {
+        private static void Prefix() => FactoryTree.Injetar();
+    }
+
+    [HarmonyPatch(typeof(MoonWorld), nameof(MoonWorld.CrewPurchase))]
+    internal static class CrewPurchasePatch
+    {
+        private static void Prefix() => FactoryTree.Injetar();
+    }
+
     // Chama o atalho Ctrl da bota de gravidade uma vez por quadro durante a partida.
     // Evita AddComponent, que depende de class injection (specs/004, research R3)
     [HarmonyPatch(typeof(MoonWorld), nameof(MoonWorld.Update))]

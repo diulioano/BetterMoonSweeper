@@ -11,7 +11,7 @@ namespace BetterMoonSweeper
         public const string Guid = "com.diuli.bettermoonsweeper";
 
         // Precisa ser igual em todos os jogadores do lobby (quem tiver versão diferente é bloqueado)
-        public const string Version = "0.5.3";
+        public const string Version = "0.5.4";
 
         // Cópia estática do Log do plugin, para as classes estáticas do mod usarem
         public static new ManualLogSource Log;
