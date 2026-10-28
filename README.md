@@ -10,7 +10,7 @@ gravidade e um Jonas maior (JONAS 2.0). Os textos dentro do jogo seguem o padrã
 | Jogo | Moon Sweepers patch 1.0.4 (Unity 6000.6, IL2CPP) |
 | Loader | BepInEx 6.0.0-be.791 + Moon Sweepers BepInEx Patcher V1.0.0 |
 | Multiplayer | Co-op; **todos** os jogadores precisam do mod na mesma versão |
-| Estado | Carrega no jogo e injeta a aba; testes de gameplay em andamento (ver [Limitações](#limitações-conhecidas)) |
+| Estado | Testado em jogo e funcional na 0.5.6 (ver [Limitações](#limitações-conhecidas)) |
 
 ---
 
@@ -109,8 +109,6 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 - **JONAS 2.0 ainda não foi visto em jogo.** Os colisores crescem junto com o modelo, mas a
   navegação do robô continua usando o tamanho original; se ele afundar no chão, travar em
   passagens ou as sapatas ficarem fora do lugar, diminua `JonasMaior.Escala`.
-- **Testes em jogo em andamento.** O mod carrega e cria a aba; os efeitos (velocidade das
-  máquinas, payout, Ctrl) ainda estão sendo conferidos. Roteiros em `specs/*/quickstart.md`.
 - **Os níveis do mod ficam dentro do save do jogo.** O save separado ainda não foi feito; por
   isso o backup e o teste acima.
 - **Sem bloqueio no lobby** para quem não tem o mod ou tem outra versão.
@@ -122,10 +120,10 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 
 | Versão | Mudanças |
 |---|---|
-| 0.5.6 | Ctrl da bota de gravidade funciona com o martelo na mão (só o modo de construção ativo bloqueia) |
-| 0.5.5 | Painel do receptor de cápsulas mostra a capacidade do Bigger Catcher em vez de 100 kg (a conferir em jogo) |
-| 0.5.4 | Níveis do mod resetavam: os nós agora são criados antes de o jogo restaurar o save (hipótese; a conferir em jogo) |
-| 0.5.3 | Bigger Catcher e Turbo Belts de volta, sem escrever nas constantes do jogo (experimental, ainda não conferido em jogo) |
+| 0.5.6 | Ctrl da bota de gravidade funciona com o martelo na mão (só o modo de construção ativo bloqueia). Testada em jogo; versão oficial |
+| 0.5.5 | Painel do receptor de cápsulas mostra a capacidade do Bigger Catcher em vez de 100 kg |
+| 0.5.4 | Níveis do mod resetavam: os nós agora são criados antes de o jogo restaurar o save |
+| 0.5.3 | Bigger Catcher e Turbo Belts de volta, sem escrever nas constantes do jogo |
 | 0.5.2 | Removidos Bigger Catcher, Bigger Silo e Turbo Belts: escrever nas constantes de capacidade do jogo causava crash (AccessViolation) |
 | 0.5.1 | Removido o Bigger Station (efeito não confirmado) |
 | 0.5.0 | Upgrades de armazenamento (receptor de cápsulas, silo) e Turbo Belts (velocidade das esteiras); efeitos ainda não conferidos em jogo |
