@@ -27,3 +27,11 @@ Preços ×3 por nível e porcentagens são provisórios (decididos "por cima", a
 ## Retirada (0.5.2)
 
 Gravar `MoonWorld.CatcherStoreKg` (base 100) derrubou o jogo com AccessViolationException: a propriedade é uma constante do jogo, a leitura funciona mas a escrita não. Os upgrades Bigger Catcher, Bigger Silo e Turbo Belts saíram. Caminho possível: patches Harmony nos métodos que usam a capacidade (`CatcherFull`, `DepositCatch`), sem escrever na constante; precisa de teste em jogo.
+
+## Solução (0.5.3)
+
+`CatcherStoreKg` (100), `GarageSiloCapacityKg` (6000) e `BeltSpeed` (1,1) são constantes: o log da 0.5.0 mostra os valores base redondos e a escrita derrubou o jogo. A 0.5.3 não escreve nelas:
+
+- **Bigger Catcher**: cada receptor tem um armazenamento em `MoonWorld.vehicleStorage` (id com o prefixo de `CatcherStoragePrefix`) e a capacidade dele fica em `MoonVehicleStorageSnapshot.capacity`, um dado comum. A cada passo de produção essa capacidade vira `100 × multiplicador` (`src/Armazenamento.cs`). Se o jogo checar "cheio" com a constante 100 em vez desse campo, o efeito não aparece (sem crash). O valor fica no save dos receptores existentes.
+- **Turbo Belts**: `StepConveyorsPatch` multiplica o `dt` de `MoonWorld.StepConveyors`. O visual das ripas pode não acompanhar. Se `StepConveyors` for inlinada pelo IL2CPP, o patch não roda (o log não mostra "Turbo Belts: esteiras ×").
+- Bigger Silo e Bigger Station continuam fora.

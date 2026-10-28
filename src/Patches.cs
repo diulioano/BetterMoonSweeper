@@ -39,6 +39,7 @@ namespace BetterMoonSweeper
             FactoryTree.Injetar();
             Ajustar(MoonWorld.ChamberSpec, ref _baseCompactador, __instance, Upgrades.CompactadorTurbo);
             Ajustar(MoonWorld.PressSpec, ref _basePrensa, __instance, Upgrades.PrensaTurbo);
+            Armazenamento.Aplicar(__instance);
         }
 
         private static void Ajustar(MoonWorld.ProcessorSpec spec, ref float baseSeconds, MoonWorld world, UpgradeDef def)
@@ -60,6 +61,26 @@ namespace BetterMoonSweeper
             if (nivel <= 0) return;
             var extra = (Il2CppSystem.Decimal)(double)Upgrades.ContratoLunar.Multiplicador(nivel);
             __result = __result * extra;
+        }
+    }
+
+    // Turbo Belts: BeltSpeed é constante do jogo (gravar derruba o jogo), então o tempo que as esteiras
+    // andam é que aumenta: StepConveyors recebe dt × multiplicador do nível
+    [HarmonyPatch(typeof(MoonWorld), nameof(MoonWorld.StepConveyors))]
+    internal static class StepConveyorsPatch
+    {
+        private static bool _avisou;
+
+        private static void Prefix(MoonWorld __instance, ref float dt)
+        {
+            int nivel = FactoryTree.Nivel(__instance, Upgrades.EsteiraTurbo);
+            if (nivel <= 0) return;
+            dt *= Upgrades.EsteiraTurbo.Multiplicador(nivel);
+            if (!_avisou)
+            {
+                _avisou = true;
+                BetterMoonSweeperMain.Log.LogInfo($"Turbo Belts: esteiras ×{Upgrades.EsteiraTurbo.Multiplicador(nivel)} (nível {nivel}).");
+            }
         }
     }
 }
