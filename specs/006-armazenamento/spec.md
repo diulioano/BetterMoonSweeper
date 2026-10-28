@@ -23,3 +23,7 @@ Preços ×3 por nível e porcentagens são provisórios (decididos "por cima", a
 ## Removido
 
 - Bigger Station (`MoonCollector.Capacity`) saiu na 0.5.1 a pedido do usuário: efeito não confirmado.
+
+## Retirada (0.5.2)
+
+Gravar `MoonWorld.CatcherStoreKg` (base 100) derrubou o jogo com AccessViolationException: a propriedade é uma constante do jogo, a leitura funciona mas a escrita não. Os upgrades Bigger Catcher, Bigger Silo e Turbo Belts saíram. Caminho possível: patches Harmony nos métodos que usam a capacidade (`CatcherFull`, `DepositCatch`), sem escrever na constante; precisa de teste em jogo.

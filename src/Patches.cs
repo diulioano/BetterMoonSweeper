@@ -39,7 +39,6 @@ namespace BetterMoonSweeper
             FactoryTree.Injetar();
             Ajustar(MoonWorld.ChamberSpec, ref _baseCompactador, __instance, Upgrades.CompactadorTurbo);
             Ajustar(MoonWorld.PressSpec, ref _basePrensa, __instance, Upgrades.PrensaTurbo);
-            Armazenamento.Aplicar(__instance);
         }
 
         private static void Ajustar(MoonWorld.ProcessorSpec spec, ref float baseSeconds, MoonWorld world, UpgradeDef def)
