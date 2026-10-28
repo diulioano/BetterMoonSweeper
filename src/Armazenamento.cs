@@ -22,8 +22,6 @@ namespace BetterMoonSweeper
                     Ler = () => MoonWorld.CatcherStoreKg, Gravar = v => MoonWorld.CatcherStoreKg = v },
             new() { Nome = "GarageSiloCapacityKg", Upgrade = Upgrades.SiloGrande,
                     Ler = () => MoonWorld.GarageSiloCapacityKg, Gravar = v => MoonWorld.GarageSiloCapacityKg = v },
-            new() { Nome = "MoonCollector.Capacity", Upgrade = Upgrades.EstacaoGrande,
-                    Ler = () => MoonCollector.Capacity, Gravar = v => MoonCollector.Capacity = v },
             // Não é armazenamento, mas segue a mesma regra base × nível (velocidade das esteiras)
             new() { Nome = "BeltSpeed", Upgrade = Upgrades.EsteiraTurbo,
                     Ler = () => MoonWorld.BeltSpeed, Gravar = v => MoonWorld.BeltSpeed = (float)v },

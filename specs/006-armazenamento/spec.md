@@ -10,7 +10,6 @@ O jogo guarda as capacidades em propriedades estáticas (docs/assembly-csharp.tx
 |---|---|---|---|
 | Bigger Catcher (receptor de cápsulas) | `MoonWorld.CatcherStoreKg` | +50% / +100% / +200% | 2.000 |
 | Bigger Silo (silo da garagem) | `MoonWorld.GarageSiloCapacityKg` | +50% / +100% / +200% | 2.000 |
-| Bigger Station (estação coletora) | `MoonCollector.Capacity` | +50% / +100% / +200% | 3.000 |
 | Turbo Belts (esteiras) | `MoonWorld.BeltSpeed` | +25% / +50% / +100% | 1.500 |
 
 Preços ×3 por nível e porcentagens são provisórios (decididos "por cima", a pedido do usuário).
@@ -20,3 +19,7 @@ Preços ×3 por nível e porcentagens são provisórios (decididos "por cima", a
 - Se uma propriedade for constante inlinada pelo IL2CPP, escrever nela não muda nada. O log mostra `Capacidade <nome>: base=X → Y`; conferir em jogo (quickstart).
 - Falha em uma propriedade é registrada uma vez e não derruba as outras.
 - A velocidade das esteiras pode afetar a física das cápsulas; começar com ganhos modestos.
+
+## Removido
+
+- Bigger Station (`MoonCollector.Capacity`) saiu na 0.5.1 a pedido do usuário: efeito não confirmado.

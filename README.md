@@ -6,7 +6,7 @@ gravidade e um Jonas maior (JONAS 2.0). Os textos dentro do jogo seguem o padrã
 
 | | |
 |---|---|
-| Versão | **0.5.0** |
+| Versão | **0.5.1** |
 | Jogo | Moon Sweepers patch 1.0.4 (Unity 6000.6, IL2CPP) |
 | Loader | BepInEx 6.0.0-be.791 + Moon Sweepers BepInEx Patcher V1.0.0 |
 | Multiplayer | Co-op; **todos** os jogadores precisam do mod na mesma versão |
@@ -29,7 +29,6 @@ qualquer outro nó: com o dinheiro do time, e o host confirma.
 | **Lunar Contract** | *"A bigger cut of every sale: more money for the whole crew."* | +10% / +25% / +50% / +75% / +100% / +150% payout | 2.500 / 7.500 / 22.500 / 67.500 / 202.500 / 607.500 |
 | **Bigger Catcher** | *"Deeper hoppers: capsule catchers hold more dust before they fill up."* | +50% / +100% / +200% catcher storage | 2.000 / 6.000 / 18.000 |
 | **Bigger Silo** | *"Reinforced tanks: the garage silo stores more dust."* | +50% / +100% / +200% silo storage | 2.000 / 6.000 / 18.000 |
-| **Bigger Station** | *"Extra bays: the collector station stores more dust."* | +50% / +100% / +200% station storage | 3.000 / 9.000 / 27.000 |
 | **Turbo Belts** | *"Tuned rollers: conveyor belts move capsules faster."* | +25% / +50% / +100% belt speed | 1.500 / 4.500 / 13.500 |
 
 - **Turbo Compactor e Turbo Stone Press** encurtam o tempo de cada ciclo da máquina: +100% de
@@ -82,7 +81,7 @@ Todos do grupo precisam fazer igual, com a mesma versão do mod.
    (SHA-256 `b91bb4d4c12870abe79039a04173bbd5077322a8613bf90159a200a8370b1f94`).
 3. Abra o jogo uma vez e feche. O primeiro início demora um pouco mais.
 4. Copie `BetterMoonSweeper.dll` para `BepInEx\plugins`.
-5. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.5.0 carregado.` e,
+5. Abra o jogo e confira `BepInEx\LogOutput.log`: deve ter `BetterMoonSweeper 0.5.1 carregado.` e,
    no fim, `Chainloader startup complete`.
    As mensagens `Unsupported metadata version found! ... got 108` e
    `Class::Init signatures have been exhausted` são normais.
@@ -124,7 +123,8 @@ apenas `BepInEx\plugins\BetterMoonSweeper.dll`.)
 
 | Versão | Mudanças |
 |---|---|
-| 0.5.0 | Upgrades de armazenamento (receptor de cápsulas, silo, estação coletora) e Turbo Belts (velocidade das esteiras); efeitos ainda não conferidos em jogo |
+| 0.5.1 | Removido o Bigger Station (efeito não confirmado) |
+| 0.5.0 | Upgrades de armazenamento (receptor de cápsulas, silo) e Turbo Belts (velocidade das esteiras); efeitos ainda não conferidos em jogo |
 | 0.4.0 | JONAS 2.0: o Jonas 1,5x maior (mesmo modelo, escalado) |
 | 0.3.1 | Textos em inglês no padrão do jogo (aba FACTORY); ids internos `bettermoonsweeper.*` |
 | 0.3.0 | Migração para BepInEx 6: primeira versão que roda no jogo |

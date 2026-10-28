@@ -10,7 +10,6 @@ namespace BetterMoonSweeper
         ContratoLunar,
         ReceptorGrande,
         SiloGrande,
-        EstacaoGrande,
         EsteiraTurbo,
     }
 
@@ -98,18 +97,6 @@ namespace BetterMoonSweeper
             PrecoBase = 2000,
         };
 
-        public static readonly UpgradeDef EstacaoGrande = new()
-        {
-            Id = UpgradeId.EstacaoGrande,
-            NodeId = "bettermoonsweeper.station",
-            Nome = "Bigger Station",
-            Resumo = "Extra bays: the collector station stores more dust.",
-            TextoDoEfeito = m => $"+{Porcento(m)}% station storage",
-            Icone = MoonUpgradeTree.Glyph.Unload,
-            Multiplicadores = new[] { 1.5f, 2f, 3f },
-            PrecoBase = 3000,
-        };
-
         public static readonly UpgradeDef EsteiraTurbo = new()
         {
             Id = UpgradeId.EsteiraTurbo,
@@ -122,6 +109,6 @@ namespace BetterMoonSweeper
             PrecoBase = 1500,
         };
 
-        public static readonly UpgradeDef[] Todos = { CompactadorTurbo, PrensaTurbo, ContratoLunar, ReceptorGrande, SiloGrande, EstacaoGrande, EsteiraTurbo };
+        public static readonly UpgradeDef[] Todos = { CompactadorTurbo, PrensaTurbo, ContratoLunar, ReceptorGrande, SiloGrande, EsteiraTurbo };
     }
 }
