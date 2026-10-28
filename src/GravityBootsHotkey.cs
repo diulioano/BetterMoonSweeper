@@ -53,7 +53,7 @@ namespace BetterMoonSweeper
             if (walker == null || !walker.OwnsGravityBoots) return;
             // Hipótese (research R4): o jogo usa MenuBlocked/UIBlocked para travar o input com UI aberta
             if (walker.MenuBlocked || walker.UIBlocked) return;
-            if (walker.Mounted || walker.Passenger || walker.Riding != null || walker.Building || MoonInput.BuildToolInHand) return;
+            if (walker.Mounted || walker.Passenger || walker.Riding != null || walker.Building) return; // martelo na mão (BuildToolInHand) não bloqueia: só o modo de construção ativo
             if (walker.Knocked || walker.Climbing || walker.Resting || walker.Travelling || walker.Held || walker.Flying) return;
 
             var log = BetterMoonSweeperMain.Log;
