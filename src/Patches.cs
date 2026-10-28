@@ -98,4 +98,47 @@ namespace BetterMoonSweeper
             }
         }
     }
+
+    // O painel que aparece ao olhar um receptor de cápsulas calcula "kg / 100 kg" e o medidor com a
+    // constante do jogo. Durante MoonCatcherLook.Show, trocamos o 100 pela capacidade do nível.
+    [HarmonyPatch(typeof(MoonCatcherLook), nameof(MoonCatcherLook.Show))]
+    internal static class CatcherLookShowPatch
+    {
+        internal static bool Dentro;
+        internal static double Kg;
+
+        private static void Prefix(MoonWorld world, int id)
+        {
+            Dentro = true;
+            try { Kg = world.CatcherKilograms(id); } catch { Kg = double.NaN; }
+        }
+
+        private static void Finalizer() => Dentro = false; // roda mesmo se Show lançar exceção
+    }
+
+    [HarmonyPatch(typeof(MoonLookPanel), nameof(MoonLookPanel.SetRow))]
+    internal static class CatcherLookRowPatch
+    {
+        private static int _logs;
+
+        private static void Prefix(string label, ref float fill, ref string value)
+        {
+            if (!CatcherLookShowPatch.Dentro) return;
+            try
+            {
+                double cap = Armazenamento.Capacidade;
+                double antigo = MoonWorld.CatcherStoreKg;
+                if (_logs++ < 6)
+                    BetterMoonSweeperMain.Log.LogInfo($"Painel do receptor: \"{label}\" fill={fill} value=\"{value}\" (kg={CatcherLookShowPatch.Kg}, capacidade={cap})");
+                if (double.IsNaN(cap) || cap == antigo || double.IsNaN(CatcherLookShowPatch.Kg)) return;
+                if (System.Math.Abs(fill - CatcherLookShowPatch.Kg / antigo) > 0.02 && !(fill >= 0.999f && CatcherLookShowPatch.Kg >= antigo)) return;
+                fill = (float)System.Math.Min(1.0, CatcherLookShowPatch.Kg / cap);
+                if (value != null) value = value.Replace(MoonCatcherLook.Kg(antigo), MoonCatcherLook.Kg(cap));
+            }
+            catch (System.Exception e)
+            {
+                BetterMoonSweeperMain.Log.LogError($"Painel do receptor: {e.Message}");
+            }
+        }
+    }
 }

@@ -12,6 +12,9 @@ namespace BetterMoonSweeper
         private static bool _falhou;
         private static int _aplicados = -1;
 
+        // Capacidade que cada receptor deve ter agora (100 × nível). A UI do jogo usa a constante 100
+        public static double Capacidade = double.NaN;
+
         public static void Aplicar(MoonWorld world)
         {
             if (_falhou || world == null) return;
@@ -24,6 +27,7 @@ namespace BetterMoonSweeper
                     throw new System.InvalidOperationException($"prefixo dos receptores inesperado: \"{_prefixo}\"");
 
                 double alvo = MoonWorld.CatcherStoreKg * Upgrades.ReceptorGrande.Multiplicador(FactoryTree.Nivel(world, Upgrades.ReceptorGrande));
+                Capacidade = alvo;
                 int total = 0;
                 foreach (var par in storages)
                 {
